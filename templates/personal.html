@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for("static",filename="css/ex.css") }}"/>
+	<title>personal center</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var mask = $("#mask"),
+                faphto = $('.faphto'),
+                ph_cancel = $('#ph_cancel'),
+                xuanfu = $('#xuanfu');
+
+            xuanfu.hide();
+            mask.hide();
+
+            mask.click(function(){
+                xuanfu.fadeOut();
+                mask.fadeOut();
+            });
+            faphto.click(function(){
+                mask.fadeIn();
+                xuanfu.fadeIn();
+            });
+            ph_cancel.click(function () {
+                xuanfu.fadeOut();
+                mask.fadeOut();
+            })
+        });
+    </script>
+</head>
+<body style="background-image:url({{ url_for("static",filename="img/11.png") }});background-repeat:no-repeat; width: 100%; height: 100%; margin:0px; padding:0px;">
+<div style="width:100%;">
+	<div><!--头部开始-->
+	<div class="xiaoxi">
+			<a class="" href="" style="float:left; width:100%;">
+				<p style="float:left; width:85%;"><img class="tu" src="http://121.199.50.208:8080/static/img/xx.png" >消息中心</p>
+				<span style="float:right; margin-top:15px; margin-right:15px; ">></span>
+			</a>
+		</div>
+	</div>
+    <div class="bott"></div>
+<!--    <div class="pp"></div>
+    <div class="bott"></div>-->
+	<div style="width:100%;">
+		<ul class="ul">
+			<li>
+				<a href=""><img class="tu11" src="http://121.199.50.208:8080/static/img/bk.png" alt="">
+				<p class="zizi">产品百科</p></a>
+			</li>
+			<li>
+				<a href=""><img class="tu11" src="http://121.199.50.208:8080/static/img/dz.png" alt="">
+				<p class="zizi">表情定制</p></a>
+			</li>
+			<li>
+				<a href=""><img class="tu11" src="http://121.199.50.208:8080/static/img/4.png" alt="">
+				<p class="zizi">&nbsp;社区</p></a>
+			</li>
+		</ul>
+	</div><!--头部结束-->
+	<div style="margin-bottom:130px;"><!--内容开始-->
+		<div class="neir">
+			<p class="cp"><a  href=""><img class="tu1" src="http://121.199.50.208:8080/static/img/7.png" >我的产品<span style="float:right; margin-right:10px;">></span></a></p>
+            <p class="ppss"></p>
+			<p class="cp"><a  href=""><img class="tu2" src="http://121.199.50.208:8080/static/img/10.png" >设置<span style="float:right; margin-right:10px;">></span></a></p>
+		</div>
+		<div class="neir">
+			<p class="cp"><a  href=""><img class="tu1" src="http://121.199.50.208:8080/static/img/8.png" >帮助与反馈<span style="float:right; margin-right:10px;">></span></a></p>
+            <p class="ppss"></p>
+			<p class="cp"><a  href=""><img class="tu1" src="http://121.199.50.208:8080/static/img/9.png" >用户协议与隐私政策<span style="float:right; margin-right:10px;">></span></a></p>
+		</div>
+	</div><!--内容结束-->
+    <div class="bott"></div>
+	 <div class="db">
+        <ul class="ulul">
+            <li>
+                <a href="http://121.199.50.208:8080/"><img class="tupian" src="http://121.199.50.208:8080/static/img/sy1.png" alt="">
+                    <p class="zizi">首页</p></a>
+            </li>
+            <li>
+                <a href="http://121.199.50.208:8080/collect"><img class="tupian" src="http://121.199.50.208:8080/static/img/C3.png" alt="">
+                    <p class="zizi">收藏</p></a>
+            </li>
+            <li>
+                <a href="http://121.199.50.208:8080/boutique"><img class="tupian" src="http://121.199.50.208:8080/static/img/C5.png" alt="">
+                    <p class="zizi">精品</p></a>
+            </li><li>
+            <a href="http://121.199.50.208:8080/personal"><img class="tupian" src="http://121.199.50.208:8080/static/img/6.png" alt="">
+                <p class="zizi">我的</p></a>
+        </li>
+        </ul>
+    </div>
+    <div id="xuanfu">
+        <!--图片框-->
+        <div style="background-image:url(http://121.199.50.208:8080/static/img/x2.png);background-repeat:no-repeat;" id="ph" class="login_msg">
+            <a id="ph_cancel"><img align="right" src="http://121.199.50.208:8080/static/img/x8.png" style="margin-top:-15px;"></a>
+            <div class="flasaa">
+                <a onclick="disableElement()"><img align="left" src="http://121.199.50.208:8080/static/img/x10.png" style="width: 15%;"></a>
+                <img id="view_img" class="species_img" align="center" src="http://121.199.50.208:8080/static/img/猫和老鼠/4.jpg">
+                <a onclick="disableElement()"><img align="right" src="http://121.199.50.208:8080/static/img/x11.png" style="width:15%;"></a>
+            </div>
+            <div style="position:relative; margin-top:30px;bottom: 10px;">
+                <img align="left" style="margin-left: 30px;" src="http://121.199.50.208:8080/static/img/x4.png">
+                <img align="right" style="margin-right: 30px;" src="http://121.199.50.208:8080/static/img/x5.png">
+            </div>
+        </div>
+        <!--评论框-->
+        <div id="ph_comment" class="comment_msg">
+            <label style="font-size: small">快来评论吧…</label>
+            <a><img align="right" style="width: 20px; margin-right: 15px" src="http://121.199.50.208:8080/static/img/f7.png"></a>
+            <input type="text" class="form-control" placeholder="">
+            <!--        <input style="border:0;border-bottom: 1px solid black;">-->
+            <hr align="left" width=98%;color=rgba(204, 204, 204, 0.24); size=1>
+            <div class="comment_content">
+                <p class="form-control_x">有点意思</p>
+                <p class="form-control_x">有点意思</p>
+                <p class="form-control_x">有点意思</p>
+                <p class="form-control_x">有点意思</p>
+            </div>
+        </div>
+    </div>
+    <div id="mask"></div>
+</div>
+
+<script>
+    function disableElement(){
+        var img2src = $("#view_img").attr("src");
+        var pleacehold = $("#inplace").attr("placeholder");
+        if("undefined" == typeof result){
+            pleacehold = "";
+        }
+        var data= {
+            data: JSON.stringify({
+                'imgname': img2src,
+                'pleacehold': pleacehold
+            }),
+        }
+        $.ajax({
+            url:'http://60.205.177.131:8081/test',
+            type:'POST',
+            data:data,
+            dataType: 'text',
+            success:function(data){
+                $("#view_img").attr("src", data);
+            },
+            error:function (data) {
+
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <title>Login</title>
+    <script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<style>
+    * {
+        margin:0;
+        padding:0;
+    }
+    html,body {
+        height:100%;
+    }
+    .login-bg {
+        /*background-image:url(http://121.199.50.208:8080/static/img/login_bg.png);*/
+        /*background-repeat:no-repeat;*/
+        width: 100%;
+        height: 100%;
+        margin:0px;
+        padding:0px;
+        /*background-image:linear-gradient(160deg,#b100ff 20%,#00b3ff 80%);*/
+        /*position:relative;*/
+    }
+    .content {
+        position:absolute;
+        width:320px;
+        height:300px;
+        background:rgba(255,255,255,.7);
+        box-shadow: 2px 2px 3px rgba(239, 239, 239, 0.5);
+        border-radius:10px;
+        top:71%;
+        left:50%;
+        margin-left:-160px;
+        margin-top:-230px;
+        padding:10px 20px;
+        box-sizing:border-box;
+    }
+    .title h2 {
+        font-size:22px;
+        line-height:60px;
+        color:#333;
+        font-weight:bold;
+        text-align:center;
+    }
+    .login-center {
+        height:50px;
+        border-radius:5px;
+        border:1px solid rgba(46, 97, 88, 0.8);
+        margin-bottom:30px;
+        line-height:50px;
+        padding:0 10px;
+        box-sizing:border-box;
+    }
+    .login-center .t-name {
+        font-size:14px;
+        float:left;
+        height:100%;
+        width:58px;
+    }
+    .login-center .inp {
+        font-size:14px;
+        float:left;
+        border:none;
+        background:transparent;
+        height:100%;
+        outline:none;
+    }
+    .login-center .inp.code-inp {
+        width:120px;
+    }
+    .login-center .get-code {
+        float:right;
+        height:100%;
+    }
+    .login-center .get-code .code-btn {
+        color:#a07941;
+        font-size:12px;
+        border:1px solid #a07941;
+        border-radius:5px;
+        padding:5px;
+        box-sizing:border-box;
+        cursor:pointer;
+    }
+    .login-button {
+        background-color: rgba(43, 92, 83, .9);
+        height:50px;
+        border-radius:5px;
+        font-size:18px;
+        color:#fff;
+        text-align:center;
+        line-height:50px;
+        cursor:pointer;
+    }
+</style>
+
+<body style="background-image:url({{ url_for("static",filename="img/login_bg.png") }});background-repeat:no-repeat; width: 100%; height: 100%; margin:0px; padding:0px;">
+
+<div style="width:100%;">
+    <div class="content">
+        <div class="title" style="padding: 10px;">
+            <h4 align="center" style="padding-bottom:4px;">手机验证登陆</h4>
+        </div>
+        <div class="form-box">
+            <div class="login-center">
+                <span class="t-name">手机号：</span><input type="text" name="" id="tel_num" class="inp phone-inp" value="" placeholder="请输入您的手机号">
+            </div>
+            <div class="login-center">
+                <span class="t-name">验证码：</span><input type="text" name="" id="code_num" class="inp code-inp" value="" placeholder="请输入您的验证码">
+                <div class="get-code">
+                    <span class="code-btn">获取验证码</span>
+                </div>
+            </div>
+            <div class="login-button">登陆</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+
+    function time_inter() {
+        var code_time = 90;
+        $('.code-btn').addClass('code-btn-gray');
+        var timeflag = setInterval(function() {
+            $('.code-btn-gray').html("" + code_time + "s后获取").css({
+                "cursor": "no-",
+                "color": "#999"
+            });
+            code_time--;
+            if (code_time == 0) {
+                clearInterval(timeflag);
+                $('.code-btn-gray').html("获取验证码").css({
+                    "cursor": "pointer",
+                    "color": "#a07941"
+                });
+                $('.code-btn').removeClass('code-btn-gray');
+            }
+        }, 1000)
+
+    }
+    //获取验证码点击事件
+    $('.code-btn').on('click', function() {
+        if ($(this).hasClass('code-btn-gray')) {
+            return false;
+        }
+        var tel_num = $('#tel_num').val();
+        var data= {
+            data: JSON.stringify({
+                'phonenum': tel_num
+            }),
+        }
+        if (tel_num && tel_num.length == 11) {
+            $.ajax({
+            url:'http://121.199.50.208:8080/sendmessage',
+            type:'POST',
+            data:data,
+            dataType: 'text',
+            success:function(data){
+                if (data === "OK"){
+                    time_inter(); //按钮倒计时
+                }else{
+                    alert("发送异常");
+                }
+
+            },
+            error:function (data) {
+                alert("发送异常");
+            }
+        })
+        } else {
+            alert('请输入正确手机号码')
+        }
+    })
+
+    $('.login-button').on('click', function() {
+        var tel_num = $('#tel_num').val();
+        var code_num = $('#code_num').val();
+        var data= {
+            data: JSON.stringify({
+                'phonenum': tel_num,
+                'captcha': code_num
+            }),
+        }
+        $.ajax({
+            url:'http://121.199.50.208:8080/login_test',
+            type:'POST',
+            data:data,
+            dataType: 'text',
+            success:function(data){
+                if (data !== "false"){
+                    window.location.href=data;
+                }else{
+                    alert("登陆失败！");
+                }
+
+            },
+            error:function (data) {
+                alert("登陆失败！");
+            }
+        })
+    })
+</script>
+
+
+</body>
+</html>
